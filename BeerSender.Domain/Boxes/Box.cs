@@ -30,8 +30,6 @@ public class Box : AggregateRoot
 // Commands
 public record CreateBox(Guid BoxId, int DesiredNumberOfSpots);
 
-public record AddShippingLabel(Guid BoxId, string TrackingCode, Carrier Carrier);
-
 // Events
 public record BoxCreated(BoxCapacity BoxCapacity);
 
