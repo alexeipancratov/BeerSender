@@ -1,3 +1,5 @@
+using BeerSender.Domain.Boxes.Events;
+
 namespace BeerSender.Domain.Boxes.Commands;
 
 public record AddShippingLabelCommand(Guid BoxId, ShippingLabel ShippingLabel);
@@ -11,11 +13,11 @@ public class AddShippingLabelCommandHandler(IEventStore eventStore) : CommandHan
 
         if (command.ShippingLabel.IsValid())
         {
-            boxStream.Append(new ShippingLabelAdded(command.ShippingLabel));
+            boxStream.Append(new ShippingLabelAddedEvent(command.ShippingLabel));
         }
         else
         {
-            boxStream.Append(new ShippingLabelFailedToAdd(ShippingLabelFailedToAdd.FailReason.TrackingCodeInvalid));
+            boxStream.Append(new ShippingLabelFailedToAddEvent(ShippingLabelFailedToAddEvent.FailReason.TrackingCodeInvalid));
         }
     }
 }

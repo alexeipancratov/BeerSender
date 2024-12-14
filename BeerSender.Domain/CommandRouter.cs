@@ -1,5 +1,3 @@
-using BeerSender.Domain.Boxes.Commands;
-
 namespace BeerSender.Domain;
 
 public class CommandRouter(IEventStore eventStore, IServiceProvider serviceProvider)
