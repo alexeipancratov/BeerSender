@@ -11,7 +11,7 @@ public class AddBeerBottleCommandHandler(IEventStore eventStore) : CommandHandle
         var boxStream = GetEventStream<Box>(command.BoxId);
         var box = boxStream.GetEntity();
 
-        if (box.BoxContent!.IsFull())
+        if (box.IsFull)
         {
             boxStream.Append(new BeerBottleFailedToAddEvent(BeerBottleFailedToAddEvent.FailReason.BoxWasFull));
         }

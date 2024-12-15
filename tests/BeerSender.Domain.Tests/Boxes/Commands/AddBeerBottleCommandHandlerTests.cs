@@ -12,8 +12,10 @@ public class AddBeerBottleCommandHandlerTests : CommandHandlerTest<AddBeerBottle
     [Fact]
     public void BoxIsEmpty_BottleShouldBeAdded()
     {
+        var newBottle = new BeerBottle("Wolf", "Carte Blanche", 8.5, BeerBottle.BeerType.Triple);
+        
         Given(new BoxCreatedEvent(new BoxCapacity(6)));
-        When(new AddBeerBottleCommand(_aggregateId, new BeerBottle("Wolf", "Carte Blanche", 8.5, BeerBottle.BeerType.Triple)));
-        Then(new BeerBottleAddedEvent(new BeerBottle("Wolf", "Carte Blanche", 8.5, BeerBottle.BeerType.Triple)));
+        When(new AddBeerBottleCommand(_aggregateId, newBottle));
+        Then(new BeerBottleAddedEvent(newBottle));
     }
 }

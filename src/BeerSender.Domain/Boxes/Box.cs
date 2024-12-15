@@ -17,7 +17,6 @@ public class Box : AggregateRoot
     public void Apply(BoxCreatedEvent @event)
     {
         Capacity = @event.BoxCapacity;
-        BoxContent = new BoxContent(Capacity, []);
     }
 
     public void ShippingLabelAdded(ShippingLabelAddedEvent @event)
@@ -27,12 +26,15 @@ public class Box : AggregateRoot
 
     public void BottleAdded(BeerBottleAddedEvent @event)
     {
-        BoxContent = new BoxContent(Capacity!, [..BoxContent!.BeerBottles, @event.BeerBottle]);
+        Bottles = [..Bottles, @event.BeerBottle];
     }
 
     public ShippingLabel? ShippingLabel { get; private set; }
 
     public BoxCapacity? Capacity { get; private set; }
-    
-    public BoxContent? BoxContent { get; private set; }
+
+
+    public IReadOnlyList<BeerBottle> Bottles { get; private set; } = [];
+
+    public bool IsFull => Capacity!.NumberOfSpots == Bottles.Count;
 }
