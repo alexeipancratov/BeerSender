@@ -19,12 +19,12 @@ public class Box : AggregateRoot
         Capacity = @event.BoxCapacity;
     }
 
-    public void ShippingLabelAdded(ShippingLabelAddedEvent @event)
+    public void Apply(ShippingLabelAddedEvent @event)
     {
         ShippingLabel = @event.ShippingLabel;
     }
 
-    public void BottleAdded(BeerBottleAddedEvent @event)
+    public void Apply(BeerBottleAddedEvent @event)
     {
         Bottles = [..Bottles, @event.BeerBottle];
     }

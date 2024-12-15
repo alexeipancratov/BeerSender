@@ -9,7 +9,6 @@ public class AddShippingLabelCommandHandler(IEventStore eventStore) : CommandHan
     public override void Handle(AddShippingLabelCommand command)
     {
         var boxStream = GetEventStream<Box>(command.BoxId);
-        var box = boxStream.GetEntity();
 
         if (command.ShippingLabel.IsValid())
         {

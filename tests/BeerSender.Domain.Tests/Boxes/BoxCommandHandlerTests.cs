@@ -13,11 +13,18 @@ public abstract class BoxCommandHandlerTests<TCommand> : CommandHandlerTests<TCo
 
     protected BeerBottleAddedEvent Beer_bottle_added(BeerBottle bottle) => new(bottle);
 
+    protected BeerBottleFailedToAddEvent Beer_bottle_failed_to_add_box_full(BeerBottle bottle) =>
+        new(BeerBottleFailedToAddEvent.FailReason.BoxWasFull);
+
+    protected ShippingLabelAddedEvent Shipping_label_added(ShippingLabel shippingLabel) => new(shippingLabel);
+
     #endregion
 
     #region Test Data
 
     protected BeerBottle Carte_blanche = new("Wolf", "Carte Blanche", 8.5, BeerBottle.BeerType.Triple);
+
+    protected ShippingLabel Valid_shipping_label = new(Carrier.Ups, "ABC");
 
     #endregion
 }
