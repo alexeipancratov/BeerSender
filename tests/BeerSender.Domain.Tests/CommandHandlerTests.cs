@@ -6,7 +6,7 @@ namespace BeerSender.Domain.Tests;
 /// Test base class for CommandHandler tests.
 /// </summary>
 /// <typeparam name="TCommand">The command type for the handler.</typeparam>
-public abstract class CommandHandlerTest<TCommand>
+public abstract class CommandHandlerTests<TCommand>
 {
     /// <summary>
     /// If no explicit aggregateId is provided, this one will be used behind the scenes.

@@ -1,10 +1,9 @@
 using BeerSender.Domain.Boxes;
 using BeerSender.Domain.Boxes.Commands;
-using BeerSender.Domain.Boxes.Events;
 
 namespace BeerSender.Domain.Tests.Boxes.Commands;
 
-public class AddBeerBottleCommandHandlerTests : CommandHandlerTest<AddBeerBottleCommand>
+public class AddBeerBottleCommandHandlerTests : BoxCommandHandlerTests<AddBeerBottleCommand>
 {
     protected override CommandHandler<AddBeerBottleCommand> Handler =>
         new AddBeerBottleCommandHandler(eventStore);
@@ -12,10 +11,16 @@ public class AddBeerBottleCommandHandlerTests : CommandHandlerTest<AddBeerBottle
     [Fact]
     public void BoxIsEmpty_BottleShouldBeAdded()
     {
-        var newBottle = new BeerBottle("Wolf", "Carte Blanche", 8.5, BeerBottle.BeerType.Triple);
-        
-        Given(new BoxCreatedEvent(new BoxCapacity(6)));
-        When(new AddBeerBottleCommand(_aggregateId, newBottle));
-        Then(new BeerBottleAddedEvent(newBottle));
+        Given(
+            Box_created_with_capacity(6));
+        When(
+            Add_beer_bottle(Carte_blanche));
+        Then(
+            Beer_bottle_added(Carte_blanche));
+    }
+    
+    private AddBeerBottleCommand Add_beer_bottle(BeerBottle bottle)
+    {
+        return new AddBeerBottleCommand(Box_ID, bottle);
     }
 }
