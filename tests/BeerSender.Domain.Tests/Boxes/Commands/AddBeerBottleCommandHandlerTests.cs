@@ -6,7 +6,7 @@ namespace BeerSender.Domain.Tests.Boxes.Commands;
 public class AddBeerBottleCommandHandlerTests : BoxCommandHandlerTests<AddBeerBottleCommand>
 {
     protected override CommandHandler<AddBeerBottleCommand> Handler =>
-        new AddBeerBottleCommandHandler(eventStore);
+        new AddBeerBottleCommandHandler(EventStore);
 
     [Fact]
     public void BoxIsEmpty_BottleShouldBeAdded()

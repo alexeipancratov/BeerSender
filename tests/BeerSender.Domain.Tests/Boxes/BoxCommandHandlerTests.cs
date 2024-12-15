@@ -1,11 +1,11 @@
 using BeerSender.Domain.Boxes;
 using BeerSender.Domain.Boxes.Events;
 
-namespace BeerSender.Domain.Tests;
+namespace BeerSender.Domain.Tests.Boxes;
 
 public abstract class BoxCommandHandlerTests<TCommand> : CommandHandlerTests<TCommand>
 {
-    protected Guid Box_ID => _aggregateId;
+    protected Guid Box_ID => AggregateId;
 
     #region Events
 

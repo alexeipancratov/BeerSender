@@ -11,7 +11,7 @@ public abstract class CommandHandlerTests<TCommand>
     /// <summary>
     /// If no explicit aggregateId is provided, this one will be used behind the scenes.
     /// </summary>
-    protected readonly Guid _aggregateId = Guid.NewGuid();
+    protected readonly Guid AggregateId = Guid.NewGuid();
 
     /// <summary>
     /// The command handler, to be provided in the Test class.
@@ -22,14 +22,14 @@ public abstract class CommandHandlerTests<TCommand>
     /// <summary>
     /// A fake, in-memory event store.
     /// </summary>
-    protected TestStore eventStore = new();
+    protected readonly TestStore EventStore = new();
 
     /// <summary>
     /// Sets a list of previous events for the default aggregate ID.
     /// </summary>
     protected void Given(params object[] events)
     {
-        Given(_aggregateId, events);
+        Given(AggregateId, events);
     }
 
     /// <summary>
@@ -37,7 +37,7 @@ public abstract class CommandHandlerTests<TCommand>
     /// </summary>
     protected void Given(Guid aggregateId, params object[] events)
     {
-        eventStore.PreviousEvents.AddRange(events
+        EventStore.PreviousEvents.AddRange(events
             .Select((e,i) => new StoredEvent(aggregateId, i, DateTime.Now, e)));
     }
 
@@ -55,7 +55,7 @@ public abstract class CommandHandlerTests<TCommand>
     /// </summary>
     protected void Then(params object[] expectedEvents)
     {
-        Then(_aggregateId, expectedEvents);
+        Then(AggregateId, expectedEvents);
     }
 
     /// <summary>
@@ -64,7 +64,7 @@ public abstract class CommandHandlerTests<TCommand>
     /// </summary>
     protected void Then(Guid aggregateId, params object[] expectedEvents)
     {
-        var actualEvents = eventStore.NewEvents
+        var actualEvents = EventStore.NewEvents
             .Where(e => e.AggregateId == aggregateId)
             .OrderBy(e => e.SequenceNumber)
             .Select(e => e.EventData)
