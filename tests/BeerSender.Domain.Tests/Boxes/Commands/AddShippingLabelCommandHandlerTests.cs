@@ -17,7 +17,6 @@ public class AddShippingLabelCommandHandlerTests : BoxCommandHandlerTests<AddShi
             Add_shipping_label(Valid_shipping_label));
         Then(
             Shipping_label_added(Valid_shipping_label));
-        
     }
 
     private AddShippingLabelCommand Add_shipping_label(ShippingLabel shippingLabel) => new(Box_ID, shippingLabel);
