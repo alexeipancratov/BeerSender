@@ -9,7 +9,7 @@ public class AddShippingLabelCommandHandlerTests : BoxCommandHandlerTests<AddShi
         new AddShippingLabelCommandHandler(EventStore);
 
     [Fact]
-    public void ShippingLabelIsValid_ShippingLabelAdded()
+    public void ShippingLabelIsValid_ShouldAddShippingLabel()
     {
         Given(
             Box_created_with_capacity(1));

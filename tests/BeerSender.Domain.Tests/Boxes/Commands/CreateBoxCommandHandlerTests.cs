@@ -14,7 +14,7 @@ public class CreateBoxCommandHandlerTests : BoxCommandHandlerTests<CreateBoxComm
     [InlineData(13, 24)]
     [InlineData(100, 24)]
     [Theory]
-    public void ShippingLabelIsValid_ShippingLabelAdded(int desiredNumberOfSpots, int actualNumberOfSpots)
+    public void BoxDoesntExist_ShouldSucceed(int desiredNumberOfSpots, int actualNumberOfSpots)
     {
         Given();
         When(

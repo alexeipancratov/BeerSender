@@ -29,6 +29,11 @@ public class Box : AggregateRoot
         Bottles = [..Bottles, @event.BeerBottle];
     }
 
+    public void Apply(BoxClosedEvent _)
+    {
+        IsClosed = true;
+    }
+
     public ShippingLabel? ShippingLabel { get; private set; }
 
     public BoxCapacity? Capacity { get; private set; }
@@ -37,4 +42,8 @@ public class Box : AggregateRoot
     public IReadOnlyList<BeerBottle> Bottles { get; private set; } = [];
 
     public bool IsFull => Capacity!.NumberOfSpots == Bottles.Count;
+
+    public bool IsEmpty => Bottles.Count == 0;
+    
+    public bool IsClosed { get; private set; }
 }
