@@ -22,6 +22,14 @@ public abstract class BoxCommandHandlerTests<TCommand> : CommandHandlerTests<TCo
 
     protected BoxFailedToCloseEvent Box_was_empty() => new(BoxFailedToCloseEvent.FailReason.BoxWasEmpty);
 
+    protected BoxShippedEvent Box_shipped() => new();
+
+    protected BoxFailedToShipEvent Box_failed_to_ship_box_not_closed() =>
+        new(BoxFailedToShipEvent.FailReason.BoxWasNotClosed);
+    
+    protected BoxFailedToShipEvent Box_failed_to_ship_shipping_label_not_added() =>
+        new(BoxFailedToShipEvent.FailReason.ShippingLabelWasNotAdded);
+
     #endregion
 
     #region Test Data

@@ -15,7 +15,7 @@ public class ShipBoxCommandHandler(IEventStore eventStore) : CommandHandler<Ship
         {
             boxStream.Append(new BoxFailedToShipEvent(BoxFailedToShipEvent.FailReason.ShippingLabelWasNotAdded));
         }
-        if (!box.IsClosed)
+        else if (!box.IsClosed)
         {
             boxStream.Append(new BoxFailedToShipEvent(BoxFailedToShipEvent.FailReason.BoxWasNotClosed));
         }
