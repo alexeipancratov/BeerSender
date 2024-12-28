@@ -1,9 +1,15 @@
+using BeerSender.Domain;
+using BeerSender.EventStore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
+
+builder.Services.RegisterDomain();
+builder.Services.RegisterEventStore();
 
 var app = builder.Build();
 
@@ -25,6 +31,8 @@ app.UseHttpsRedirection();
 app.UseRouting();
 
 app.UseAuthorization();
+
+app.MapControllers();
 
 app.MapStaticAssets();
 app.MapRazorPages()

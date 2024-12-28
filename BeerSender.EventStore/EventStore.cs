@@ -3,7 +3,7 @@ using Dapper;
 
 namespace BeerSender.EventStore;
 
-public class EventStore(EventStoreConnectionFactory connectionFactory)
+public class EventStore(EventStoreConnectionFactory connectionFactory) : IEventStore
 {
     private readonly EventStoreConnectionFactory _connectionFactory = connectionFactory;
 
