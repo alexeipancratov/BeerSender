@@ -28,7 +28,7 @@ public class EventStream<TEntity>(IEventStore eventStore, Guid aggregateId)
     {
         _lastSequenceNumber++;
 
-        StoredEvent storedEvent = new(_aggregateId, _lastSequenceNumber, DateTimeOffset.UtcNow, @event);
+        StoredEvent storedEvent = new(_aggregateId, _lastSequenceNumber, DateTime.UtcNow, @event);
 
         _eventStore.AppendEvent(storedEvent);
         _eventStore.SaveChanges();
