@@ -1,3 +1,4 @@
+using BeerSender.Domain;
 using BeerSender.Domain.Boxes;
 using BeerSender.QueryApi.Database;
 using BeerSender.QueryApi.Database.Models;
@@ -7,15 +8,17 @@ namespace BeerSender.QueryApi.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class BoxController(BoxQueryRepository boxQueryRepository) : ControllerBase
+public class BoxController(IEventStore eventStore, BoxQueryRepository boxQueryRepository) : ControllerBase
 {
+    private readonly IEventStore _eventStore = eventStore;
     private readonly BoxQueryRepository _boxQueryRepository = boxQueryRepository;
 
     [HttpGet]
     [Route("{id}")]
     public Box GetById([FromRoute]Guid id)
     {
-        throw new NotImplementedException();
+        var eventStream = new EventStream<Box>(_eventStore, id);
+        return eventStream.GetEntity();
     }
 
     [HttpGet]
