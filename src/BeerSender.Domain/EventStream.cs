@@ -23,6 +23,27 @@ public class EventStream<TEntity>(IEventStore eventStore, Guid aggregateId)
 
         return entity;
     }
+    
+    public TEntity GetEntity(int version)
+    {
+        var events = _eventStore.GetEvents(_aggregateId);
+
+        TEntity entity = new();
+        foreach (var @event in events)
+        {
+            if (_lastSequenceNumber == version)
+            {
+                return entity;
+            }
+            
+            // NOTE: By casting it to dynamic we're forcing it to use the most specific method if one is available
+            // instead of calling the base method which does nothing in our case.
+            entity.Apply((dynamic)@event.EventData);
+            _lastSequenceNumber = @event.SequenceNumber;
+        }
+
+        return entity;
+    }
 
     public void Append(object @event)
     {
