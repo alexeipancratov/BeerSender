@@ -2,7 +2,7 @@
 
 This projects serves as a demo of the Event Sourcing pattern.
 
-## Database
+## Events Database
 SQL script to create the Events DB table:
 
 ```
@@ -18,4 +18,40 @@ CREATE TABLE [dbo].[Events](
         [AggregateId] ASC,
         [SequenceNumber] ASC
     )
-)```
+)
+```
+
+## Read Store Database
+SQL script to create the Read DB tables:
+
+```
+CREATE TABLE [dbo].[OpenBoxes](
+	[BoxId] [uniqueidentifier] NOT NULL,
+	[Capacity] [int] NOT NULL,
+	[NumberOfBottles] [int] NOT NULL DEFAULT (0),
+    CONSTRAINT [PK_OpenBoxes] PRIMARY KEY CLUSTERED
+    (
+        [BoxId] ASC
+    )
+) 
+
+CREATE TABLE [dbo].[UnsentBoxes](
+	[BoxId] [uniqueidentifier] NOT NULL,
+	[Status] [varchar](64) NOT NULL,
+    CONSTRAINT [PK_UnsentBoxes] PRIMARY KEY CLUSTERED
+    (
+        [BoxId] ASC
+    )
+) 
+
+CREATE TABLE [dbo].[ProjectionCheckpoints](
+	[ProjectionName] [varchar](256) NOT NULL,
+	[EventVersion] [binary](8) NOT NULL DEFAULT 0x0000000000000000,
+    CONSTRAINT [PK_ProjectionCheckpoints] PRIMARY KEY CLUSTERED 
+    (
+        [ProjectionName] ASC
+    )
+)
+```
+
+## License
