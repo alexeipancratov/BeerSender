@@ -2,7 +2,10 @@
 
 This projects serves as a demo of the Event Sourcing pattern.
 
-## Events Database
+## Web API
+This is a command API to execute various business operations.
+
+### Events Database
 SQL script to create the Events DB table:
 
 ```
@@ -21,7 +24,14 @@ CREATE TABLE [dbo].[Events](
 )
 ```
 
-## Read Store Database
+## Projections background service
+A background service which projects events from the main Events database to the Read Store for an easier
+and quicker consumption.
+
+## Query API
+Reads data from the Read Store. Events are being placed here by the Projections background service.
+
+### Read Store Database
 SQL script to create the Read DB tables:
 
 ```
